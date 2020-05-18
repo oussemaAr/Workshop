@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">My APP</string>
+    <string name="my_string">ARSTRING</string>
+    <string name="button_signup_text">SIGN UP WITH AR</string>
+    <string name="SIGNIN">SIGNIN WITH AR</string>
+</resources>

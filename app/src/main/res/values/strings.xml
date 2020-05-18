@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">My APP</string>
+    <string name="my_string">SIGNUP</string>
+
+    <string name="button_signup_text">SIGNUP</string>
+    <string name="SIGNIN">SIGNIN</string>
+</resources>
