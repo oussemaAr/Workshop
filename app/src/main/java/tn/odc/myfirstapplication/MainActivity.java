@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     Button createAccount;
     Button validate;
     EditText email;
+    EditText password;
     TextView link;
 
     @Override
@@ -25,14 +26,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("my_pref", MODE_PRIVATE);
+        boolean isLoggedIN = sharedPreferences.getBoolean("is_logged_in", false);
+        if(isLoggedIN){
+            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         createAccount = findViewById(R.id.navigate_to_create);
 
         validate = findViewById(R.id.validate);
         email = findViewById(R.id.email);
-
-        SharedPreferences sharedPreferences = getSharedPreferences("my_pref", MODE_PRIVATE);
-        String emailTxt = sharedPreferences.getString("email", "No Mail Found");
-        email.setText(emailTxt);
+        password = findViewById(R.id.password);
 
         link = findViewById(R.id.link);
 
@@ -73,7 +79,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void navigateToMain(View view) {
-        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-        startActivity(intent);
+        SharedPreferences sharedPreferences = getSharedPreferences("my_pref", MODE_PRIVATE);
+        String emailTxt = sharedPreferences.getString("email", "");
+        String passwordTxt = sharedPreferences.getString("password", "");
+
+        String inputEmail = email.getText().toString();
+        String inputPassword = password.getText().toString();
+
+        if(emailTxt.equals(inputEmail) && passwordTxt.equals(inputPassword)){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("is_logged_in", true);
+            editor.commit();
+            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }else{
+            email.setError("Wrong Email");
+            password.setError("Wrong Password");
+        }
     }
 }

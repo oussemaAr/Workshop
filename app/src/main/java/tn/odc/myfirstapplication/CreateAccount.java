@@ -48,6 +48,9 @@ public class CreateAccount extends AppCompatActivity {
                 SharedPreferences sharedPreferences = getSharedPreferences("my_pref", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("email", emailTxt);
+                editor.putString("first_name", fName);
+                editor.putString("last_name", lName);
+                editor.putString("password", passwordTxt);
                 editor.commit();
             }
         });
