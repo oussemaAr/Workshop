@@ -1,5 +1,6 @@
 package tn.odc.myfirstapplication;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +14,11 @@ public class CreateAccount extends AppCompatActivity {
 
     // 1 declaration des Widgets
     Button createAccount;
+
     EditText firstName;
+    EditText lastName;
+    EditText email;
+    EditText password;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -22,7 +27,11 @@ public class CreateAccount extends AppCompatActivity {
 
         // 2 link createAccount avec button dans XML
         createAccount = findViewById(R.id.create_account);
+
         firstName = findViewById(R.id.first_name);
+        lastName = findViewById(R.id.last_name);
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
 
         // change the text of the button
         createAccount.setText("NEW TEXT");
@@ -31,8 +40,15 @@ public class CreateAccount extends AppCompatActivity {
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = firstName.getText().toString();
-                Toast.makeText(CreateAccount.this, "Welcome "+ name, Toast.LENGTH_SHORT).show();
+                String fName = firstName.getText().toString();
+                String lName = lastName.getText().toString();
+                String emailTxt = email.getText().toString();
+                String passwordTxt = password.getText().toString();
+
+                SharedPreferences sharedPreferences = getSharedPreferences("my_pref", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("email", emailTxt);
+                editor.commit();
             }
         });
     }
